@@ -14,7 +14,7 @@ const cors = require("cors");
 connectDB();
 
 // Set up server port from environment or default to 8000
-const port = process.env.PORT || 800;
+const port = process.env.PORT || 80;
 
 // Set up CORS options
 const corsOptions = {
