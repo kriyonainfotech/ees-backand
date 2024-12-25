@@ -18,7 +18,7 @@ const port = process.env.PORT || 80;
 
 // Set up CORS options
 const corsOptions = {
-    origin: ['https://ess-frontend-eight.vercel.app', 'http://65.0.115.73'], // Add your IP
+    origin: ['https://ess-frontend-eight.vercel.app', 'http://3.110.168.202'], // Add your IP
     credentials: true,
 };
 
