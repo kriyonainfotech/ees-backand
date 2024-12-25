@@ -18,9 +18,8 @@ const port = process.env.PORT || 80;
 
 // Set up CORS options
 const corsOptions = {
-    origin: 'https://ess-frontend-eight.vercel.app', // Client URL
-    // origin: 'http://localhost:5173', // Uncomment this for local development
-    credentials: true, // Allow credentials (cookies, headers, etc.)
+    origin: ['https://ess-frontend-eight.vercel.app', 'http://65.0.115.73'], // Add your IP
+    credentials: true,
 };
 
 // Use middleware
