@@ -1,31 +1,47 @@
-const dotenv = require('dotenv')
+// Load environment variables
+const dotenv = require('dotenv');
+dotenv.config();  // Move this to the top to load environment variables first
+
+// Import required modules
 const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
-const port = process.env.PORT || 8000;
-connectDB()
-dotenv.config()
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
+// Connect to MongoDB
+connectDB();
+
+// Set up server port from environment or default to 8000
+const port = process.env.PORT || 8000;
+
+// Set up CORS options
 const corsOptions = {
     origin: 'https://ess-frontend-eight.vercel.app', // Client URL
-    // origin: 'http://localhost:5173', // Client URL
+    // origin: 'http://localhost:5173', // Uncomment this for local development
     credentials: true, // Allow credentials (cookies, headers, etc.)
 };
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(express.urlencoded());
 
-app.use('/', require('./routes/indexRoute'))
+// Use middleware
+app.use(cors(corsOptions));  // Enable CORS with the specified options
+app.use(express.json());  // Built-in Express JSON parser (no need for bodyParser.json())
+app.use(cookieParser());  // Parse cookies
+app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded data
 
+// Add a simple route to verify the server is working
+app.get('/', (req, res) => {
+    res.send('Hello, world!');  // Root route to test if the server is up
+});
+
+// Import routes
+app.use('/', require('./routes/indexRoute'));  // Your existing route file
+
+// Start the server
 app.listen(port, (err) => {
     if (err) {
         console.log(err);
         return false;
     }
-    console.log(`Server is running on port ${port}`)
-})
+    console.log(`Server is running on port ${port}`);
+});
